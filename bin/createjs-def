@@ -1,10 +1,11 @@
 #!/usr/bin/env node
-if (process.argv.length < 4) {
-	console.log("createjs-format <format> <file>");
+if (process.argv.length < 5) {
+	console.log("createjs-format <format> <file> <outdir>");
 	process.exit();
 }
 var format = process.argv[2];
 var fileName = process.argv[3];
+var outDirectory = process.argv[4];
 
 
 var fs = require("fs");
@@ -24,5 +25,15 @@ fs.readFile(fileName, "utf8", function(err, data) {
 
 	var formatter = require("../lib/formatter");
 	var out = formatter[format](model);
-	console.log(out);
+	//console.log(out);
+
+	var exportDir = outDirectory + "/" + out.namespace;
+
+	if (!fs.existsSync(exportDir)) {
+		fs.mkdirSync(outDirectory + "/" + out.namespace);
+	}
+
+	for (var file in out.classes) {
+		fs.writeFileSync(exportDir +"/" + file + ".hx", out.classes[file]);
+	}
 });

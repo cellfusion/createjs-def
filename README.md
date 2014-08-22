@@ -34,4 +34,4 @@ Node.js version
 **Usage:**
 
     createjs-def typescript animation-lib.js > animation-lib.d.ts
-    createjs-def haxe animation-lib.js > AnimationLib.hx
+    createjs-def haxe animation-lib.js ./
